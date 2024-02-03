@@ -18,7 +18,7 @@ class App {
   private view: View;
   private stats?: Stats;
   private controls?: OrbitControls;
-  private timeDisplay: HTMLDivElement;
+  private timeDisplay: HTMLInputElement;
 
   private mousePos: [number, number] = [0, 0];
 
@@ -42,8 +42,11 @@ class App {
 
     this.view.start();
 
-    this.timeDisplay = document.createElement('div');
+    this.timeDisplay = document.createElement('input');
     this.timeDisplay.id = 'time';
+    this.timeDisplay.readOnly = true;
+    this.timeDisplay.addEventListener(`focus`, () => this.timeDisplay.select());
+
     document.body.appendChild(this.timeDisplay);
 
     window.addEventListener('hashchange', this.hashChange.bind(this));
@@ -76,8 +79,10 @@ class App {
 
     if (this.paused) {
       this.pausedTime = this.time - this.timeDiff;
+      window.location.hash = `#${Math.round(this.pausedTime)}`;
     } else {
       this.timeDiff = this.time - this.pausedTime;
+      window.location.hash = '';
     }
   }
 
@@ -99,10 +104,10 @@ class App {
       this.paused ? this.pausedTime : timeAdjusted
     );
 
-    this.timeDisplay.innerText = String(currentTime);
+    this.timeDisplay.value = String(currentTime);
     this.timeDisplay.style.display =
       this.paused && !this.fullScreen ? 'block' : 'none';
-    this.view.update(7 + currentTime / 1000, this.mousePos);
+    this.view.update(currentTime / 1000, this.mousePos);
 
     // this.view.update(t / 5000 + this.mouseSeed);
     // this.view.update(this.mouseSeed * 10);

@@ -28,7 +28,7 @@ export default class View {
       canvas,
       antialias: true,
     });
-    this.renderer.setPixelRatio(window.devicePixelRatio);
+    // this.renderer.setPixelRatio(window.devicePixelRatio);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
     this.camera = new THREE.PerspectiveCamera(45, 1, 0.01, 300);

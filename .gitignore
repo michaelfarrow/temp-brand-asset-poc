@@ -1,3 +1,9 @@
+web/js/main.js
+*.blend1
+
+# Mac OS
+.DS_Store
+
 # Default Node gitignore from https://github.com/github/gitignore
 
 # Logs
@@ -7,7 +13,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-web/js/main.js
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
