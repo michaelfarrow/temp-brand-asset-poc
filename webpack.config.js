@@ -11,7 +11,7 @@ module.exports = {
 
   // Outputs compiled bundle to `./web/js/main.js`
   output: {
-    path: path.resolve(__dirname, '/web/'),
+    path: path.resolve(__dirname, './web/'),
     filename: 'js/[name].js',
     publicPath: '/web/',
   },
