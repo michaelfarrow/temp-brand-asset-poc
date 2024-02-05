@@ -19,11 +19,16 @@ class App {
   private stats?: Stats;
   private controls?: OrbitControls;
   private timeDisplay: HTMLInputElement;
+  private instuctionsAction: HTMLSpanElement;
 
   private mousePos: [number, number] = [0, 0];
   private mousePosCurrent: [number, number] = [0, 0];
 
   constructor() {
+    this.instuctionsAction = document.getElementById(
+      'instructions-action'
+    ) as HTMLSpanElement;
+
     this.hashChange();
 
     const canvasBox = <HTMLCanvasElement>(
@@ -65,6 +70,7 @@ class App {
       const time = Number(startTime) || 0;
       this.pausedTime = time;
       this.paused = true;
+      this.updatePlayPause();
     }
   }
 
@@ -83,6 +89,7 @@ class App {
           this.timeDiff = this.time - this.pausedTime;
           window.location.hash = '';
         }
+        this.updatePlayPause();
         break;
     }
   }
@@ -95,15 +102,19 @@ class App {
     this.view.onWindowResize(window.innerWidth, window.innerHeight);
   };
 
+  private updatePlayPause() {
+    this.instuctionsAction.innerText = this.paused ? 'play' : 'pause';
+  }
+
   private update = (t: number): void => {
     requestAnimationFrame(this.update);
 
     this.time = t;
     this.mousePosCurrent = [
       this.mousePosCurrent[0] +
-        (this.mousePos[0] - this.mousePosCurrent[0]) / 5,
+        (this.mousePos[0] - this.mousePosCurrent[0]) / 10,
       this.mousePosCurrent[1] +
-        (this.mousePos[1] - this.mousePosCurrent[1]) / 5,
+        (this.mousePos[1] - this.mousePosCurrent[1]) / 10,
     ];
 
     const timeAdjusted = this.time - this.timeDiff;
@@ -114,6 +125,7 @@ class App {
     this.timeDisplay.value = String(currentTime);
     this.timeDisplay.style.display =
       this.paused && !this.fullScreen ? 'block' : 'none';
+
     this.view.update(
       this.time / 1000,
       currentTime / 1000,

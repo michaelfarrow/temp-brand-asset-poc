@@ -38,7 +38,7 @@ export default class Shard extends SceneObject {
       new THREE.MeshPhysicalMaterial({
         transmission: 1,
         thickness: 6,
-        ior: 1.6,
+        // ior: 1.6,
         roughness: 1.1,
         roughnessMap,
         envMap: hdrEquirect,

@@ -20,7 +20,7 @@
         margin: 0px;
         padding: 0px;
         overflow: hidden;
-        background: #000;
+        background: #fff;
         height: 100%;
         font-family: Arial, Helvetica, sans-serif;
         color: #fff;
@@ -46,6 +46,24 @@
         left: 10px;
         color: #000;
       }
+
+      #instructions {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        color: #777;
+      }
+
+      #instructions-key {
+        display: inline-block;
+        border: 1px solid #ccc;
+        padding: 5px;
+        border-radius: 5px;
+      }
+
+      #instructions-action {
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -55,6 +73,10 @@
 	<h1>three.ts-template</h1>
 	<p>ThreeJS, TypeScript, GLSL & Webpack boilerplate</p>
 </header> -->
+      <span id="instructions">
+        Press <span id="instructions-key">space</span> to
+        <span id="instructions-action">pause</span> colour cycle
+      </span>
     </main>
 
     <!-- JS Bundle --> 
