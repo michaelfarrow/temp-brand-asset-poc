@@ -4,9 +4,10 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import SceneObject from './SceneObject';
 import shardObj from './models/shard.obj';
 
-export default class Shard extends SceneObject {
-  // timeU: THREE.IUniform;
+import vertShader from './glsl/roughness.vs';
+import fragShader from './glsl/roughness.fs';
 
+export default class Shard extends SceneObject {
   constructor({
     material: materialOverride,
   }: { material?: THREE.Material } = {}) {
@@ -24,17 +25,31 @@ export default class Shard extends SceneObject {
         })) ||
       null;
 
+    const roughnessMap = new THREE.TextureLoader().load(
+      'textures/roughness.png'
+    );
+
+    // const roughness = new THREE.ShaderMaterial(
+
+    // );
+
     const material =
       materialOverride ||
       new THREE.MeshPhysicalMaterial({
         transmission: 1,
-        thickness: 2.5,
+        thickness: 6,
         ior: 1.6,
-        roughness: 0.3,
+        roughness: 1.1,
+        roughnessMap,
         envMap: hdrEquirect,
-        envMapIntensity: 0.3,
+        envMapIntensity: 0.4,
         side: THREE.DoubleSide,
       });
+
+    // const material = new THREE.ShaderMaterial({
+    //   vertexShader: vertShader,
+    //   fragmentShader: fragShader,
+    // });
 
     obj.traverse((o: any) => {
       if (o.isMesh) {
@@ -44,23 +59,17 @@ export default class Shard extends SceneObject {
     });
 
     group.scale.set(2, 2, 2);
-    // group.translateX(-3.5);
 
     this.object = group;
-    // const mesh = new THREE.Mesh(geometry, material);
   }
 
-  update(secs: number, mousePos: [number, number]) {
-    super.update(secs, mousePos);
-
-    const rotationX = 0.4 + (mousePos[0] / window.innerWidth - 0.5) * 0.5;
+  update(time: number, currentTime: number, mousePos: [number, number]) {
+    const rotationX = 0.4 + (mousePos[0] / window.innerWidth - 0.5) * 0.4;
     const rotationY = 0.1 + (mousePos[1] / window.innerHeight - 0.5) * 0.1;
 
     this.object.rotation.set(
-      rotationY + Math.sin(secs / 10) * 0.1,
-      // Math.sin(secs / 10) * 2 * Math.PI,
-      rotationX + Math.sin((secs + 100) / 10) * 0.2,
-      // Math.cos(secs / 10) * 2 * Math.PI,
+      rotationY + Math.sin(time / 10) * 0.05,
+      rotationX + Math.sin((time + 100) / 10) * 0.1,
       0.2
     );
   }

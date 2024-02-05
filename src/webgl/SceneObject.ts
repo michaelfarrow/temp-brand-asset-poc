@@ -5,5 +5,5 @@ export default class SceneObject {
 
   constructor() {}
 
-  update(secs: number, mousePos: [number, number]) {}
+  update(time: number, currentTime: number, mousePos: [number, number]) {}
 }

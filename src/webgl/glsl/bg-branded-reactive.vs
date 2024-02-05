@@ -84,7 +84,7 @@ void main() {
 	vNormal = normal;
 
 
-  vec2 noiseCoord = uv + uPos / 15000.0;
+  vec2 noiseCoord = uv + uPos / 20000.0;
 
   float timeVertex = uTime / 100.0;
 
@@ -97,8 +97,8 @@ void main() {
     position.z + max(noise2 * 3.0, 0.0)
   );
 
-	gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
-	// gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+	// gl_Position = projectionMatrix * modelViewMatrix * vec4( pos, 1.0 );
+	gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
 
   vColour = uPallete[0];

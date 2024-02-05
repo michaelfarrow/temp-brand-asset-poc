@@ -49,9 +49,13 @@ export default class View {
     return { scene: [] };
   }
 
-  protected updateObjects(secs: number, mousePos: [number, number]) {
+  protected updateObjects(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number]
+  ) {
     for (const objects of Object.values(this.objects)) {
-      objects.forEach((o) => o.update(secs, mousePos));
+      objects.forEach((o) => o.update(time, currentTime, mousePos));
     }
   }
 
@@ -85,8 +89,8 @@ export default class View {
     this.renderer.setSize(w, h);
   }
 
-  update(secs: number, mousePos: [number, number]) {
-    this.updateObjects(secs, mousePos);
+  update(time: number, currentTime: number, mousePos: [number, number]) {
+    this.updateObjects(time, currentTime, mousePos);
     this.render();
   }
 }

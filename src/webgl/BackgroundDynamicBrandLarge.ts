@@ -30,12 +30,7 @@ export default class BackgroundDynamic extends SceneObject {
   constructor() {
     super();
 
-    const geometry = new THREE.PlaneGeometry(70, 70, 40, 40);
-
-    // const material = new THREE.MeshBasicMaterial({
-    //   color: 0xff0000,
-    //   wireframe: true,
-    // });
+    const geometry = new THREE.PlaneGeometry(70, 50, 40, 40);
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
@@ -56,8 +51,8 @@ export default class BackgroundDynamic extends SceneObject {
     this.object.translateZ(-10);
   }
 
-  update(secs: number, mousePos: [number, number]) {
-    this.time.value = secs;
+  update(time: number, currentTime: number, mousePos: [number, number]) {
+    this.time.value = currentTime;
     this.pos.value = mousePos;
   }
 }

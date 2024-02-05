@@ -1,7 +1,6 @@
 #include <packing>
 
 varying vec2 vUv;
-uniform sampler2D tDiffuse;
 uniform sampler2D tDepth;
 uniform float cameraNear;
 uniform float cameraFar;
