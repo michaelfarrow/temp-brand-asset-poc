@@ -59,6 +59,7 @@ export default class Shard extends SceneObject {
     });
 
     group.scale.set(2, 2, 2);
+    group.translateY(-1);
 
     this.object = group;
   }
