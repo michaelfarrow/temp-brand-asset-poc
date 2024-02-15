@@ -37,7 +37,12 @@ export default class BackgroundDynamic extends SceneObject {
     this.object.translateZ(-20);
   }
 
-  update(secs: number) {
-    this.time.value = secs;
+  update(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number],
+    dragDelta: [number, number]
+  ) {
+    this.time.value = time;
   }
 }

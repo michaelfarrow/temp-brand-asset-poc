@@ -1,19 +1,16 @@
 import * as THREE from 'three';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import SceneObject from './SceneObject';
-import shardObj from './models/shard.obj';
-
-import vertShader from './glsl/roughness.vs';
-import fragShader from './glsl/roughness.fs';
 
 export default class Shard extends SceneObject {
+  private morph = 0;
+  private currentMorph = 0;
+
   constructor({
     material: materialOverride,
   }: { material?: THREE.Material } = {}) {
     super();
-
-    const obj = new OBJLoader().parse(shardObj);
 
     const group = new THREE.Group();
 
@@ -29,10 +26,6 @@ export default class Shard extends SceneObject {
       'textures/roughness.png'
     );
 
-    // const roughness = new THREE.ShaderMaterial(
-
-    // );
-
     const material =
       materialOverride ||
       new THREE.MeshPhysicalMaterial({
@@ -46,16 +39,13 @@ export default class Shard extends SceneObject {
         side: THREE.DoubleSide,
       });
 
-    // const material = new THREE.ShaderMaterial({
-    //   vertexShader: vertShader,
-    //   fragmentShader: fragShader,
-    // });
-
-    obj.traverse((o: any) => {
-      if (o.isMesh) {
-        o.material = material;
-        group.add(o);
-      }
+    new GLTFLoader().load('models/shard-morph.glb', (obj) => {
+      obj.scene.traverse((o: any) => {
+        if (o.isMesh) {
+          o.material = material;
+          group.add(o);
+        }
+      });
     });
 
     group.scale.set(2, 2, 2);
@@ -78,5 +68,21 @@ export default class Shard extends SceneObject {
       rotationX + Math.sin((time + 100) / 10) * 0.1,
       0.2
     );
+
+    this.morph = Math.max(0, Math.min(1, this.morph + dragDelta[0] / 1000));
+
+    this.currentMorph += (this.morph - this.currentMorph) / 6;
+
+    this.object.children.forEach((o: any) => {
+      if (o.isMesh) {
+        o.morphTargetInfluences = [this.currentMorph];
+      }
+    });
+
+    // const scale = 2 * (1 - this.currentMorph * 0.2);
+
+    this.object.rotateY(this.currentMorph * 2.75);
+    this.object.rotateZ(this.currentMorph * 2);
+    // this.object.scale.set(scale, scale, scale);
   }
 }

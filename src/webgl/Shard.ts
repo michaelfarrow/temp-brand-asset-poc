@@ -135,7 +135,12 @@ export default class Shard extends SceneObject {
     // });
   }
 
-  update(time: number, currentTime: number, mousePos: [number, number]) {
+  update(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number],
+    dragDelta: [number, number]
+  ) {
     // this.timeU.value = secs;
     this.object.rotation.set(
       Math.sin(time / 10) * 2 * Math.PI,

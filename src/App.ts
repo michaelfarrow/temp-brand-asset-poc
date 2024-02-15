@@ -7,7 +7,7 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 
-import View from './webgl/View7';
+import View from './webgl/View8';
 
 class App {
   private paused: boolean = false;
@@ -23,6 +23,9 @@ class App {
 
   private mousePos: [number, number] = [0, 0];
   private mousePosCurrent: [number, number] = [0, 0];
+
+  private dragging = false;
+  private dragDelta: [number, number] = [0, 0];
 
   constructor() {
     this.instuctionsAction = document.getElementById(
@@ -58,7 +61,9 @@ class App {
     window.addEventListener('hashchange', this.hashChange.bind(this));
     window.addEventListener('keyup', this.keyUp.bind(this));
     window.addEventListener('resize', this.resize.bind(this));
+    window.addEventListener('mousedown', this.mouseDown.bind(this));
     window.addEventListener('mousemove', this.mouseMove.bind(this));
+    window.addEventListener('mouseup', this.mouseUp.bind(this));
 
     this.update(0);
   }
@@ -94,8 +99,25 @@ class App {
     }
   }
 
-  private mouseMove = (e: MouseEvent): void => {
+  private mouseDown = (e: MouseEvent): void => {
+    this.dragging = true;
     this.mousePos = [e.clientX, e.clientY];
+  };
+
+  private mouseMove = (e: MouseEvent): void => {
+    const pos = [e.clientX, e.clientY];
+
+    if (this.dragging) {
+      this.dragDelta = [pos[0] - this.mousePos[0], pos[1] - this.mousePos[1]];
+    }
+
+    this.mousePos = [e.clientX, e.clientY];
+  };
+
+  private mouseUp = (e: MouseEvent): void => {
+    this.dragging = false;
+    this.mousePos = [e.clientX, e.clientY];
+    this.dragDelta = [0, 0];
   };
 
   private resize = (): void => {
@@ -129,7 +151,8 @@ class App {
     this.view.update(
       this.time / 1000,
       currentTime / 1000,
-      this.mousePosCurrent
+      this.mousePosCurrent,
+      this.dragDelta
     );
 
     if (this.stats) {
@@ -142,4 +165,4 @@ class App {
   };
 }
 
-const app = new App();
+new App();

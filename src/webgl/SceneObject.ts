@@ -5,5 +5,10 @@ export default class SceneObject {
 
   constructor() {}
 
-  update(time: number, currentTime: number, mousePos: [number, number]) {}
+  update(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number],
+    dragDelta: [number, number]
+  ) {}
 }

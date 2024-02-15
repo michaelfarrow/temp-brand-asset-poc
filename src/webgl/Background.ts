@@ -21,7 +21,12 @@ export default class Background extends SceneObject {
     this.object.scale.set(5, 5, 1);
   }
 
-  update(time: number, currentTime: number, mousePos: [number, number]) {
+  update(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number],
+    dragDelta: [number, number]
+  ) {
     // this.object.rotation.set(
     //   0,
     //   Math.sin(secs / 100) * -2 * Math.PI,

@@ -52,10 +52,11 @@ export default class View {
   protected updateObjects(
     time: number,
     currentTime: number,
-    mousePos: [number, number]
+    mousePos: [number, number],
+    dragDelta: [number, number]
   ) {
     for (const objects of Object.values(this.objects)) {
-      objects.forEach((o) => o.update(time, currentTime, mousePos));
+      objects.forEach((o) => o.update(time, currentTime, mousePos, dragDelta));
     }
   }
 
@@ -89,8 +90,13 @@ export default class View {
     this.renderer.setSize(w, h);
   }
 
-  update(time: number, currentTime: number, mousePos: [number, number]) {
-    this.updateObjects(time, currentTime, mousePos);
+  update(
+    time: number,
+    currentTime: number,
+    mousePos: [number, number],
+    dragDelta: [number, number]
+  ) {
+    this.updateObjects(time, currentTime, mousePos, dragDelta);
     this.render();
   }
 }
