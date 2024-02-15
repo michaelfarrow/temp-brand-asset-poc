@@ -24,7 +24,7 @@ export default class Shard extends SceneObject {
       null;
 
     const roughnessMap = new THREE.TextureLoader().load(
-      'textures/roughness.png'
+      'textures/roughness-2.png'
     );
 
     const material =
