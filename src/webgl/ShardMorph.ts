@@ -5,6 +5,7 @@ import SceneObject from './SceneObject';
 
 export default class Shard extends SceneObject {
   private morph = 0;
+  private morphVal = 0;
   private currentMorph = 0;
 
   constructor({
@@ -69,9 +70,12 @@ export default class Shard extends SceneObject {
       0.2
     );
 
-    this.morph = Math.max(0, Math.min(1, this.morph + dragDelta[0] / 1000));
+    // this.morph = Math.max(0, Math.min(1, this.morph + dragDelta[0] / 1000));
+    this.morph = this.morph + dragDelta[0] / 500;
 
-    this.currentMorph += (this.morph - this.currentMorph) / 6;
+    this.morphVal = (Math.sin(this.morph) + 1) / 2;
+
+    this.currentMorph += (this.morphVal - this.currentMorph) / 10;
 
     this.object.children.forEach((o: any) => {
       if (o.isMesh) {
