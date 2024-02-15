@@ -4,7 +4,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import SceneObject from './SceneObject';
 
 export default class Shard extends SceneObject {
-  private morph = 0;
+  private morph = Math.PI / -2;
   private morphVal = 0;
   private currentMorph = 0;
 
@@ -71,7 +71,7 @@ export default class Shard extends SceneObject {
     );
 
     // this.morph = Math.max(0, Math.min(1, this.morph + dragDelta[0] / 1000));
-    this.morph = this.morph + dragDelta[0] / 500;
+    this.morph = this.morph + dragDelta[0] / 200;
 
     this.morphVal = (Math.sin(this.morph) + 1) / 2;
 
