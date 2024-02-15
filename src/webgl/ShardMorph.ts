@@ -81,8 +81,9 @@ export default class Shard extends SceneObject {
 
     // const scale = 2 * (1 - this.currentMorph * 0.2);
 
-    this.object.rotateY(this.currentMorph * 2.75);
-    this.object.rotateZ(this.currentMorph * 2);
+    this.object.rotateY(this.currentMorph * -0.5);
+    this.object.rotateX(this.currentMorph * -1);
+    this.object.rotateZ(this.currentMorph * -0.25);
     // this.object.scale.set(scale, scale, scale);
   }
 }
