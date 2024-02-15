@@ -71,11 +71,11 @@ export default class Shard extends SceneObject {
     );
 
     // this.morph = Math.max(0, Math.min(1, this.morph + dragDelta[0] / 1000));
-    this.morph = this.morph + dragDelta[0] / 200;
+    this.morph = this.morph + dragDelta[0] / 400;
 
     this.morphVal = (Math.sin(this.morph) + 1) / 2;
 
-    this.currentMorph += (this.morphVal - this.currentMorph) / 10;
+    this.currentMorph += (this.morphVal - this.currentMorph) / 5;
 
     this.object.children.forEach((o: any) => {
       if (o.isMesh) {
